@@ -450,7 +450,8 @@ ol {
   transform: scaleX(1);
 }
 
-/* Casilla de inicio: primer ítem del menú, solo ícono. */
+/* Casilla de inicio: primer ítem del menú, solo ícono.
+   Relleno de marca con contorno de alto contraste según tema. */
 .nav a.nav__home {
   display: inline-grid;
   place-items: center;
@@ -458,8 +459,12 @@ ol {
   height: 44px;
   padding: 0;
   border-radius: 999px;
-  color: var(--ink-soft);
+  color: #12150f;
   transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.nav a.nav__home .icon {
+  fill: var(--brand-strong);
 }
 
 .nav a.nav__home::after {
@@ -468,7 +473,16 @@ ol {
 
 .nav a.nav__home:hover {
   background: var(--surface-2);
-  color: var(--ink);
+}
+
+:root[data-theme="oscuro"] .nav a.nav__home {
+  color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .nav a.nav__home {
+    color: #ffffff;
+  }
 }
 
 /* Alternador claro/oscuro. */
@@ -998,15 +1012,6 @@ select {
 
 /* ---------- Tarjetas de desarrollo ---------- */
 
-.grid {
-  display: grid;
-  gap: clamp(16px, 2.2vw, 26px);
-}
-
-.grid--dev {
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 272px), 1fr));
-}
-
 .dev-card {
   position: relative;
   display: flex;
@@ -1166,15 +1171,45 @@ select {
   cursor: default;
 }
 
-/* ---------- Carrusel de modelos ---------- */
+/* ---------- Carruseles (modelos y desarrollos) ---------- */
 
+/* Reel con rieles laterales: las flechas van fuera del scroll, a la altura
+   de la ficha y en columnas propias. */
 .carousel {
-  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: stretch;
+  gap: clamp(8px, 1vw, 14px);
 }
 
-.carousel__nav {
-  display: flex;
-  gap: 8px;
+.carousel__side {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 4vw, 60px);
+  /* Cubre el padding del track (4px arriba, 20px abajo con la scrollbar). */
+  margin-block: 4px 20px;
+  border: 1px solid color-mix(in srgb, var(--brand-strong) 35%, transparent);
+  border-radius: var(--radius-lg);
+  background: var(--brand);
+  color: var(--brand-ink);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+
+.carousel__side:hover {
+  background: #b6da52;
+}
+
+.carousel__side:disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.carousel__side .icon {
+  width: 26px;
+  height: 26px;
+  stroke-width: 2;
 }
 
 .carousel__track {
@@ -1196,6 +1231,12 @@ select {
 .carousel__track::-webkit-scrollbar-thumb {
   background: var(--line);
   border-radius: 999px;
+}
+
+/* El reel de desarrollos usa fichas de ancho fijo, como las de modelos. */
+.carousel--dev .dev-card {
+  flex: 0 0 min(84vw, 300px);
+  scroll-snap-align: start;
 }
 
 .model-card {
@@ -2139,6 +2180,26 @@ dialog::backdrop {
   .modal__body {
     grid-template-columns: 1fr;
   }
+
+  /* Sin ancho para rieles: las flechas del reel bajan a su propia fila. */
+  .carousel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .carousel__track {
+    flex: 1 0 100%;
+    order: -1;
+  }
+
+  .carousel__side {
+    width: auto;
+    flex: 1;
+    height: 48px;
+    margin-block: 0;
+    border-radius: var(--radius);
+  }
 }
 
 @media (max-width: 640px) {
@@ -2260,7 +2321,7 @@ dialog::backdrop {
   .ai-fab,
   .ai-panel,
   .hero__controls,
-  .carousel__nav,
+  .carousel__side,
   .modal {
     display: none !important;
   }

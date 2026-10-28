@@ -292,6 +292,52 @@
     return `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
   }
 
+  /* ---------- Reel con flechas laterales ---------- */
+
+  /* Enlaza un carril horizontal con sus flechas laterales: avance por grupos de
+     fichas, snap al inicio y estado deshabilitado en los extremos. Devuelve la
+     función que recalcula el estado, para volver a llamarla al repintar. */
+  function conectarReel({ track, prev, next, porGrupo = 4 }) {
+    const refrescar = () => {
+      if (!track || !prev || !next) return;
+      /* El snap de la primera ficha reposa sobre el padding del track, no en 0. */
+      const margen = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      const max = track.scrollWidth - track.clientWidth - 2;
+      prev.disabled = track.scrollLeft <= margen;
+      next.disabled = track.scrollLeft >= max;
+    };
+
+    if (!track || !prev || !next) return refrescar;
+
+    const desplazar = (grupos) => {
+      const fichas = Array.from(track.children);
+      if (!fichas.length) return;
+      const inicio = track.getBoundingClientRect().left;
+      const actual = fichas.reduce(
+        (i, f, n) =>
+          Math.abs(f.getBoundingClientRect().left - inicio) <
+          Math.abs(fichas[i].getBoundingClientRect().left - inicio)
+            ? n
+            : i,
+        0
+      );
+      const destino = Math.min(
+        Math.max(actual + grupos * porGrupo, 0),
+        fichas.length - 1
+      );
+      const alineada = fichas[destino].getBoundingClientRect().left - inicio;
+      track.scrollBy({ left: alineada, behavior: "smooth" });
+    };
+
+    prev.addEventListener("click", () => desplazar(-1));
+    next.addEventListener("click", () => desplazar(1));
+    track.addEventListener("scroll", refrescar, { passive: true });
+    window.addEventListener("resize", refrescar);
+    refrescar();
+
+    return refrescar;
+  }
+
   /* ---------- Hero ---------- */
 
   function iniciarHero() {
@@ -397,7 +443,7 @@
          </button>`;
 
     return `
-      <article class="dev-card">
+      <li class="dev-card">
         <div class="dev-card__media">
           <img src="assets/desarrollos/${dev.slug}.webp" alt="Desarrollo ${dev.nombre} en ${dev.ciudad}" loading="lazy" decoding="async" width="640" height="480">
           <span class="${claseBadge}">${etiqueta}</span>
@@ -412,13 +458,17 @@
             ${accion}
           </div>
         </div>
-      </article>`;
+      </li>`;
   }
 
   function iniciarDesarrollos() {
-    const grid = $("#grid-desarrollos");
+    const track = $("#track-desarrollos");
     const chipsWrap = $("#chips-ciudad");
-    if (!grid || !chipsWrap) return;
+    if (!track || !chipsWrap) return;
+
+    const status = $("#desarrollos-status");
+    let filtroActual = "todos";
+    let actualizarFlechas = () => {};
 
     const ciudades = [...new Set(DESARROLLOS.map((d) => d.ciudad))];
     const filtros = [
@@ -440,13 +490,22 @@
       )
       .join("");
 
-    function pintar(valor) {
+    /* Pinta todo el resultado del filtro en el carril y lo devuelve al inicio. */
+    function pintar() {
       const lista = DESARROLLOS.filter((dev) => {
-        if (valor === "todos") return true;
-        if (valor === "vendidos") return dev.situacion === "vendido";
-        return dev.ciudad === valor;
+        if (filtroActual === "todos") return true;
+        if (filtroActual === "vendidos") return dev.situacion === "vendido";
+        return dev.ciudad === filtroActual;
       });
-      grid.innerHTML = lista.map(tarjetaDesarrollo).join("");
+
+      track.innerHTML = lista.map(tarjetaDesarrollo).join("");
+      if (status) {
+        status.textContent = `Mostrando ${lista.length} ${
+          lista.length === 1 ? "desarrollo" : "desarrollos"
+        }.`;
+      }
+      track.scrollTo({ left: 0, behavior: "auto" });
+      actualizarFlechas();
     }
 
     chipsWrap.addEventListener("click", (e) => {
@@ -455,17 +514,24 @@
       $$(".chip", chipsWrap).forEach((c) =>
         c.setAttribute("aria-pressed", c === chip ? "true" : "false")
       );
-      pintar(chip.dataset.filtro);
+      filtroActual = chip.dataset.filtro;
+      pintar();
     });
 
-    grid.addEventListener("click", (e) => {
+    actualizarFlechas = conectarReel({
+      track,
+      prev: $("#desarrollos-prev"),
+      next: $("#desarrollos-next"),
+    });
+
+    track.addEventListener("click", (e) => {
       const boton = e.target.closest("[data-ver-modelos]");
       if (!boton) return;
       seleccionarDesarrollo(boton.dataset.verModelos);
       $("#modelos")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    pintar("todos");
+    pintar();
   }
 
   /* ---------- Catálogo de modelos ---------- */
@@ -553,14 +619,13 @@
       actualizarFlechas();
     }
 
-    function actualizarFlechas() {
-      const prev = $("#modelos-prev");
-      const next = $("#modelos-next");
-      if (!prev || !next) return;
-      const max = track.scrollWidth - track.clientWidth - 2;
-      prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft >= max;
-    }
+    /* Las flechas del carrusel las maneja el reel compartido; aquí solo se
+       recalculan al repintar. */
+    const actualizarFlechas = conectarReel({
+      track,
+      prev: $("#modelos-prev"),
+      next: $("#modelos-next"),
+    });
 
     function activarTab(slug) {
       desarrolloActivo = slug;
@@ -583,16 +648,6 @@
       lista[siguiente].focus();
       activarTab(lista[siguiente].dataset.dev);
     });
-
-    $("#modelos-prev")?.addEventListener("click", () =>
-      track.scrollBy({ left: -track.clientWidth * 0.85, behavior: "smooth" })
-    );
-    $("#modelos-next")?.addEventListener("click", () =>
-      track.scrollBy({ left: track.clientWidth * 0.85, behavior: "smooth" })
-    );
-
-    track.addEventListener("scroll", actualizarFlechas, { passive: true });
-    window.addEventListener("resize", actualizarFlechas);
 
     track.addEventListener("click", (e) => {
       const ficha = e.target.closest("[data-ficha]");

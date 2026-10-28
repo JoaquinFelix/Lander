@@ -199,7 +199,17 @@
 
         <div class="chips" id="chips-ciudad" role="group" aria-label="Filtrar desarrollos por ciudad"></div>
 
-        <div class="grid grid--dev" id="grid-desarrollos"></div>
+        <div class="carousel carousel--dev">
+          <button class="carousel__side" id="desarrollos-prev" type="button" aria-label="Ver 4 desarrollos anteriores">
+            <svg class="icon" aria-hidden="true"><use href="#ico-arrow-left"></use></svg>
+          </button>
+          <ul class="carousel__track" id="track-desarrollos" tabindex="0" aria-label="Desarrollos disponibles"></ul>
+          <button class="carousel__side" id="desarrollos-next" type="button" aria-label="Ver 4 desarrollos siguientes">
+            <svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"></use></svg>
+          </button>
+        </div>
+
+        <p class="carousel__status" id="desarrollos-status" aria-live="polite"></p>
 
         <noscript>
           <p class="notice">Activa JavaScript para ver el catálogo interactivo de desarrollos y modelos.</p>
@@ -216,20 +226,18 @@
             <h2 id="modelos-title">Nuestros modelos</h2>
             <p>Casas de 2 y 3 recámaras, de 46 a 152 m² de construcción. Precio a consultar según disponibilidad y esquema de crédito.</p>
           </div>
-          <div class="carousel__nav" role="group" aria-label="Controles del catálogo">
-            <button class="icon-btn" id="modelos-prev" type="button" aria-label="Modelos anteriores">
-              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-left"></use></svg>
-            </button>
-            <button class="icon-btn" id="modelos-next" type="button" aria-label="Modelos siguientes">
-              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"></use></svg>
-            </button>
-          </div>
         </header>
 
         <div class="tabs" id="tabs-desarrollo" role="group" aria-label="Filtrar modelos por desarrollo"></div>
 
         <div class="carousel">
+          <button class="carousel__side" id="modelos-prev" type="button" aria-label="Ver 4 modelos anteriores">
+            <svg class="icon" aria-hidden="true"><use href="#ico-arrow-left"></use></svg>
+          </button>
           <ul class="carousel__track" id="track-modelos" tabindex="0" aria-label="Modelos disponibles"></ul>
+          <button class="carousel__side" id="modelos-next" type="button" aria-label="Ver 4 modelos siguientes">
+            <svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"></use></svg>
+          </button>
         </div>
 
         <p class="carousel__status" id="modelos-status" aria-live="polite"></p>
