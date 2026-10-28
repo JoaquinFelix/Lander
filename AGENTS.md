@@ -20,9 +20,10 @@ del código.
 - `src/app.js`: IIFE única, ~1.1k líneas. `DESARROLLOS` es la fuente de verdad y
   alimenta las tarjetas de desarrollo, chips, tabs, carrusel de modelos, ficha
   técnica y los selects del buscador y del formulario.
-- `src/styles.css`: tokens en `:root`, modo oscuro vía
-  `prefers-color-scheme` (no hay toggle) y mobile-first con breakpoints
-  `max-width` 1024 / 900 / 640.
+- `src/styles.css`: tokens en `:root` (claro por defecto) + bloque oscuro en
+  `:root[data-theme="oscuro"]` con duplicado en
+  `@media (prefers-color-scheme: dark) :root:not([data-theme])` como fallback
+  sin JS. Mobile-first con breakpoints `max-width` 1024 / 900 / 640.
 - `src/assets/`: copias locales del sitio actual. No enlazar imágenes remotas.
 
 ## Al agregar o editar contenido
@@ -47,24 +48,45 @@ del código.
 - `--brand-strong` (#759423) da 3.49:1 sobre blanco: no sirve para texto
   pequeño. Para eso está `--brand-text` (#5A7617 en claro, `#A6CE3A` en oscuro).
 - El logo es un lockup vertical 665×389 (1.71:1, raster dentro del SVG): se
-  dimensiona por `height`, nunca por `width`. En oscuro se cambia a
-  `logo-white.svg` con `<picture><source media="(prefers-color-scheme: dark)">`.
+  dimensiona por `height`, nunca por `width`. En el header van dos `<img>`
+  (`.brand__logo--claro` y `.brand__logo--oscuro`) alternados por CSS según
+  `data-theme`; no usar `<picture><source media>` porque ignoraría el toggle
+  manual. El footer se queda con `logo-white.svg`: el fullcolor tiene la
+  wordmark en tinta oscura y desaparece sobre el gris #505050.
+- El tema se resuelve en un script inline del `<head>` (antes del CSS) que fija
+  `<html data-theme>` a partir de `localStorage["lander.tema.v1"]` o del SO; solo
+  `app.js:iniciarTema()` lo alterna. Mantén sincronizado `color-scheme` con
+  `data-theme` para que los `select`/controles nativos acompañen, y el
+  `<meta name="theme-color" id="theme-color">`.
+- Paleta clara neutra (colores del sitio real): `--surface` #FFFFFF,
+  `--surface-2` #F5F5F5, `--surface-3` #F1F1F1, `--line` #E3E3E3,
+  `--ink-soft` #505050. No reintroducir tinte verde en los grises.
+- El footer claro es `--footer-bg` #505050 con `--footer-soft` #D9DBD4 y
+  `--footer-muted` #C6C8C1 (AA). `--brand` #A6CE3A da 4.41:1 sobre #505050: no
+  sirve para texto ahí; por eso `--footer-link-hover` es blanco en claro y
+  `#A6CE3A` solo en oscuro (sobre #12150F da 8:1).
 - Dots del hero, tabs y chips son botones en `role="group"` con
   `aria-pressed` / `aria-current`; el CSS depende de esos atributos, no volver a
   `role="tablist"` / `aria-selected`.
 - Para ocultar bloques usa el atributo `hidden`: existe
   `[hidden] { display: none !important }` porque varios bloques tienen
   `display: flex/grid`.
-- Claves de `localStorage` versionadas: `lander.citas.v1` y
-  `lander.asistenteInteres.v1`. Si cambia el esquema, sube la versión.
+- Claves de `localStorage` versionadas: `lander.citas.v1`,
+  `lander.asistenteInteres.v1` y `lander.tema.v1` (`"claro"` | `"oscuro"`). Si
+  cambia el esquema, sube la versión.
 - El "Asistente IA" es una puerta falsa a propósito: solo captura contacto y
   enlaza a WhatsApp. No implementes respuestas salvo que lo pidan.
 
 ## Verificación
 
 - No hay suite. Abre `src/index.html` y revisa consola limpia, imágenes rotas y
-  overflow horizontal en 360 / 390 / 768 / 1440; después los flujos buscador →
-  ficha → cita y el panel del asistente.
+  overflow horizontal en 360 / 390 / 768 / 901 / 1024 / 1440; después los flujos
+  buscador → ficha → cita y el panel del asistente.
+- Tema: alterna con el botón del menú y recarga para comprobar persistencia en
+  `localStorage`; que el logo del header/footer, el `select` nativo, el
+  `<meta theme-color>` y el `aria-pressed` acompañen el tema. El enlace de casa
+  del menú debe cerrar el menú móvil y volver arriba desde el footer.
+- Los targets nuevos (toggle de tema, enlace de casa) miden 44×44.
 - Captura sin servidor:
   `chrome --headless=new --screenshot=out.png --window-size=390,900 "file:///C:/ruta/src/index.html"`
   (Chrome está en `C:\Program Files\Google\Chrome\Application\chrome.exe`).

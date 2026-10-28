@@ -29,7 +29,7 @@ Construir y Mejorar la pagina existente de la contructura de desarrollos de fran
 # Diseño
 - Estilo limpio y moderno: mucho espacio en blanco, esquinas redondeadas, sombras suaves, una sola fuente (system font stack) y una paleta de máximo 3 colores definida con variables CSS (`:root`).
 - Mobile-first y responsive: debe verse bien desde 360px hasta pantallas de escritorio (usa flexbox/grid y media queries).
-- Soporte para modo claro y oscuro con `prefers-color-scheme`.
+- Modo claro y oscuro: por defecto sigue `prefers-color-scheme` y el usuario puede alternarlo con un botón en el menú (la preferencia se guarda en `localStorage`).
 - Áreas táctiles de al menos 44px en móvil.
 - Accesibilidad básica: HTML semántico, etiquetas en formularios, contraste suficiente y foco visible.
 

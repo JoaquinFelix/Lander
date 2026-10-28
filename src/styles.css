@@ -9,20 +9,25 @@
   /* Verde para texto: el tono de marca no alcanza contraste AA sobre blanco. */
   --brand-text: #5A7617;
   --brand-ink: #131A05;
+  /* Neutrales del sitio real (lander.com.mx): sin tinte verde. */
   --ink: #232323;
-  --ink-soft: #464A44;
+  --ink-soft: #505050;
   --muted: #6D6E71;
   --surface: #FFFFFF;
-  --surface-2: #F5F6F2;
-  --surface-3: #EBEEE4;
-  --line: #E1E5D8;
-  --footer-bg: #12150F;
-  --footer-ink: #EDF1E6;
-  --overlay: rgba(12, 16, 8, 0.72);
+  --surface-2: #F5F5F5;
+  --surface-3: #F1F1F1;
+  --line: #E3E3E3;
+  --footer-bg: #505050;
+  --footer-ink: #FFFFFF;
+  --footer-soft: #D9DBD4;
+  --footer-muted: #C6C8C1;
+  --footer-link-hover: #FFFFFF;
+  --footer-line: rgba(255, 255, 255, 0.2);
+  --overlay: rgba(0, 0, 0, 0.6);
 
-  --shadow-sm: 0 2px 8px rgba(20, 26, 14, 0.06);
-  --shadow-md: 0 18px 44px -16px rgba(20, 26, 14, 0.28);
-  --shadow-lg: 0 30px 80px -24px rgba(20, 26, 14, 0.38);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 18px 44px -16px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 30px 80px -24px rgba(0, 0, 0, 0.38);
 
   --radius-sm: 10px;
   --radius: 16px;
@@ -33,12 +38,40 @@
   --header-h: 74px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
+  /* Sin JS el tema se resuelve por sistema; con JS lo fija data-theme. */
   color-scheme: light dark;
   font-synthesis: none;
 }
 
+/* Tema oscuro manual (toggle del header). */
+:root[data-theme="oscuro"] {
+  color-scheme: dark;
+  --ink: #F2F5EC;
+  --ink-soft: #D3D9CA;
+  --muted: #A2AA9A;
+  --surface: #12150F;
+  --surface-2: #1A1E16;
+  --surface-3: #242A20;
+  --line: #2C3327;
+  --brand-text: #A6CE3A;
+  --footer-bg: #12150F;
+  --footer-ink: #EDF1E6;
+  --footer-soft: #A7AE9E;
+  --footer-muted: #8E9685;
+  --footer-link-hover: #A6CE3A;
+  --footer-line: rgba(237, 241, 230, 0.14);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 18px 44px -16px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 30px 80px -24px rgba(0, 0, 0, 0.8);
+}
+
+:root[data-theme="claro"] {
+  color-scheme: light;
+}
+
+/* Fallback sin JS: sigue la preferencia del sistema. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --ink: #F2F5EC;
     --ink-soft: #D3D9CA;
     --muted: #A2AA9A;
@@ -47,6 +80,12 @@
     --surface-3: #242A20;
     --line: #2C3327;
     --brand-text: #A6CE3A;
+    --footer-bg: #12150F;
+    --footer-ink: #EDF1E6;
+    --footer-soft: #A7AE9E;
+    --footer-muted: #8E9685;
+    --footer-link-hover: #A6CE3A;
+    --footer-line: rgba(237, 241, 230, 0.14);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 18px 44px -16px rgba(0, 0, 0, 0.7);
     --shadow-lg: 0 30px 80px -24px rgba(0, 0, 0, 0.8);
@@ -344,10 +383,40 @@ ol {
   width: auto;
 }
 
+/* Dos logos: el color solo en claro, el blanco solo en oscuro. El
+   data-theme lo fija app.js; sin JS manda el sistema. */
+.brand__logo--oscuro {
+  display: none;
+}
+
+:root[data-theme="oscuro"] .brand__logo--claro {
+  display: none;
+}
+
+:root[data-theme="oscuro"] .brand__logo--oscuro {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .brand__logo--claro {
+    display: none;
+  }
+
+  :root:not([data-theme]) .brand__logo--oscuro {
+    display: block;
+  }
+}
+
 .nav {
   display: flex;
   align-items: center;
   gap: 28px;
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .nav a:not(.btn) {
@@ -379,6 +448,71 @@ ol {
 
 .nav a:not(.btn):hover::after {
   transform: scaleX(1);
+}
+
+/* Casilla de inicio: primer ítem del menú, solo ícono. */
+.nav a.nav__home {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.nav a.nav__home::after {
+  display: none;
+}
+
+.nav a.nav__home:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+/* Alternador claro/oscuro. */
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease),
+    color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+
+.theme-toggle:hover {
+  border-color: var(--brand-strong);
+  color: var(--brand-text);
+  transform: translateY(-1px);
+}
+
+/* Muestra la acción contraria: en claro se ofrece el modo oscuro (luna). */
+.theme-toggle__sun {
+  display: none;
+}
+
+:root[data-theme="oscuro"] .theme-toggle__sun {
+  display: block;
+}
+
+:root[data-theme="oscuro"] .theme-toggle__moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .theme-toggle__sun {
+    display: block;
+  }
+
+  :root:not([data-theme]) .theme-toggle__moon {
+    display: none;
+  }
 }
 
 .nav-toggle {
@@ -732,8 +866,12 @@ select {
   line-height: 1.35;
 }
 
+:root[data-theme="oscuro"] .field__error {
+  color: #ff8f85;
+}
+
 @media (prefers-color-scheme: dark) {
-  .field__error {
+  :root:not([data-theme]) .field__error {
     color: #ff8f85;
   }
 }
@@ -1510,7 +1648,7 @@ select {
 
 .footer__tagline {
   max-width: 34ch;
-  color: rgba(237, 241, 230, 0.62);
+  color: var(--footer-soft);
   font-size: 0.86rem;
 }
 
@@ -1520,14 +1658,14 @@ select {
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(237, 241, 230, 0.55);
+  color: var(--footer-soft);
 }
 
 .footer ul {
   display: grid;
   gap: 9px;
   font-size: 0.86rem;
-  color: rgba(237, 241, 230, 0.78);
+  color: var(--footer-muted);
 }
 
 .footer a {
@@ -1536,7 +1674,7 @@ select {
 }
 
 .footer a:hover {
-  color: var(--brand);
+  color: var(--footer-link-hover);
   text-decoration: underline;
 }
 
@@ -1552,8 +1690,8 @@ select {
   justify-content: space-between;
   gap: 8px 24px;
   padding-block: 20px 28px;
-  border-top: 1px solid rgba(237, 241, 230, 0.14);
-  color: rgba(237, 241, 230, 0.5);
+  border-top: 1px solid var(--footer-line);
+  color: var(--footer-muted);
   font-size: 0.76rem;
 }
 
@@ -1972,8 +2110,18 @@ dialog::backdrop {
     font-size: 1rem;
   }
 
-  .nav .btn {
+  .nav a.nav__home {
+    justify-self: start;
+    margin-bottom: 4px;
+    border-bottom: 0;
+  }
+
+  .nav__actions {
     margin-top: 12px;
+  }
+
+  .nav__actions .btn {
+    flex: 1;
   }
 
   .finder__grid {

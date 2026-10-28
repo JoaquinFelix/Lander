@@ -9,6 +9,7 @@
   const STORAGE = {
     citas: "lander.citas.v1",
     interesIA: "lander.asistenteInteres.v1",
+    tema: "lander.tema.v1",
   };
 
   const CORPORATIVO = {
@@ -951,6 +952,55 @@
     window.setTimeout(() => $("#nombre")?.focus({ preventScroll: true }), 500);
   }
 
+  /* ---------- Tema claro/oscuro ---------- */
+
+  const COLOR_META = { claro: "#A6CE3A", oscuro: "#12150F" };
+
+  function iniciarTema() {
+    const bot = $("#tema-toggle");
+    if (!bot) return;
+
+    const esOscuro = () => document.documentElement.dataset.theme === "oscuro";
+
+    const aplicar = (oscuro) => {
+      const tema = oscuro ? "oscuro" : "claro";
+      document.documentElement.dataset.theme = tema;
+      bot.setAttribute("aria-pressed", String(oscuro));
+      bot.setAttribute(
+        "aria-label",
+        oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
+      );
+      bot.title = oscuro ? "Activar modo claro" : "Activar modo oscuro";
+      const meta = $("#theme-color");
+      if (meta) meta.content = COLOR_META[tema];
+    };
+
+    // El script del head ya fijo el tema inicial; solo sincroniza el botón.
+    aplicar(esOscuro());
+
+    bot.addEventListener("click", () => {
+      const oscuro = !esOscuro();
+      aplicar(oscuro);
+      try {
+        localStorage.setItem(STORAGE.tema, oscuro ? "oscuro" : "claro");
+      } catch (_) {
+        /* modo privado: el tema solo aplica a esta sesión */
+      }
+    });
+
+    // Sigue al sistema solo mientras no haya preferencia guardada.
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const seguirSistema = (e) => {
+      try {
+        if (localStorage.getItem(STORAGE.tema)) return;
+      } catch (_) {
+        return;
+      }
+      aplicar(e.matches);
+    };
+    media.addEventListener("change", seguirSistema);
+  }
+
   /* ---------- Menú móvil ---------- */
 
   function iniciarMenu() {
@@ -1066,6 +1116,7 @@
   /* ---------- Arranque ---------- */
 
   function iniciar() {
+    iniciarTema();
     iniciarHero();
     iniciarDesarrollos();
     iniciarModelos();

@@ -5,10 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lander | Casas y fraccionamientos en Sonora</title>
   <meta name="description" content="Desarrollos Residenciales Lander: fraccionamientos y residenciales con calidad certificada en Hermosillo, Cd. Obregón y Navojoa. Conoce los modelos y agenda tu visita.">
-  <meta name="theme-color" content="#A6CE3A">
+  <meta name="theme-color" id="theme-color" content="#A6CE3A">
   <meta property="og:title" content="Lander | Más que hogares, comunidades">
   <meta property="og:description" content="20 años construyendo comunidades en Sonora. Casas de 2 y 3 recámaras con amenidades reales. Agenda tu visita.">
   <meta property="og:type" content="website">
+  <script>
+    // Fija el tema antes de pintar para evitar parpadeo (claro/oscuro).
+    (() => {
+      try {
+        const guardado = localStorage.getItem("lander.tema.v1");
+        const oscuro = guardado
+          ? guardado === "oscuro"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = oscuro ? "oscuro" : "claro";
+      } catch (_) {
+        document.documentElement.dataset.theme = "claro";
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -37,15 +51,15 @@
     <symbol id="ico-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9Z"/></symbol>
     <symbol id="ico-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
     <symbol id="ico-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="ico-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></symbol>
+    <symbol id="ico-moon" viewBox="0 0 24 24"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z"/></symbol>
   </svg>
 
   <header class="site-header">
     <div class="container header__inner">
       <a class="brand" href="#inicio" aria-label="Lander, ir al inicio">
-        <picture>
-          <source srcset="assets/brand/logo-white.svg" media="(prefers-color-scheme: dark)">
-          <img src="assets/brand/logo-fullcolor.svg" alt="Desarrollos Residenciales Lander" width="92" height="54">
-        </picture>
+        <img class="brand__logo brand__logo--claro" src="assets/brand/logo-fullcolor.svg" alt="" width="92" height="54">
+        <img class="brand__logo brand__logo--oscuro" src="assets/brand/logo-white.svg" alt="" width="92" height="54">
       </a>
 
       <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principal">
@@ -54,11 +68,20 @@
       </button>
 
       <nav class="nav" id="nav-principal" aria-label="Navegación principal">
+        <a class="nav__home" href="#inicio" aria-label="Ir al inicio" title="Inicio">
+          <svg class="icon" aria-hidden="true"><use href="#ico-home"></use></svg>
+        </a>
         <a href="#desarrollos">Desarrollos</a>
         <a href="#modelos">Modelos</a>
         <a href="#nosotros">Nosotros</a>
         <a href="#contacto">Contacto</a>
-        <a class="btn btn--primary btn--sm" href="#cita">Agenda tu cita</a>
+        <div class="nav__actions">
+          <a class="btn btn--primary btn--sm" href="#cita">Agenda tu cita</a>
+          <button class="theme-toggle" id="tema-toggle" type="button" aria-label="Modo oscuro" aria-pressed="false" title="Activar modo oscuro">
+            <svg class="icon theme-toggle__sun" aria-hidden="true"><use href="#ico-sun"></use></svg>
+            <svg class="icon theme-toggle__moon" aria-hidden="true"><use href="#ico-moon"></use></svg>
+          </button>
+        </div>
       </nav>
     </div>
   </header>
