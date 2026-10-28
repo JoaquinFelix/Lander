@@ -922,7 +922,7 @@ select {
 /* ---------- Secciones ---------- */
 
 .section {
-  padding-block: clamp(28px, 3.4vw, 48px); /* 48 */
+  padding-block: clamp(24px, 3vw, 40px);
 }
 
 .section--alt {
@@ -2210,14 +2210,29 @@ dialog::backdrop {
     --header-h: 66px;
   }
 
+  /* Apretar el hero en móvil: el contenido (no el min-height) lo empuja a ~730px
+     y empuja "Ubicaciones" casi 400px fuera del primer scroll. */
   .hero {
     min-height: 64svh;
-    padding-bottom: 64px;
+    padding-bottom: 40px;
+  }
+
+  .hero__lead {
+    margin-top: 14px;
+  }
+
+  .hero__actions {
+    gap: 10px;
+    margin-top: 20px;
   }
 
   .hero__bar {
-    padding: 16px;
-    margin-top: 32px;
+    padding: 14px 16px;
+    margin-top: 20px;
+  }
+
+  .stats {
+    gap: 12px 16px;
   }
 
   .hero__controls {

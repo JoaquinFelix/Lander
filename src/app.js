@@ -34,6 +34,43 @@
 
   const DESARROLLOS = [
     {
+      slug: "santa-maria-iv",
+      nombre: "Misión Santa María IV",
+      ciudad: "Navojoa",
+      estado: "Sonora",
+      situacion: "disponible",
+      telefono: "644 115 2097",
+      whatsapp: "526441152097",
+      direccion: "Navojoa, Sonora.",
+      descripcion:
+        "Fraccionamiento residencial exclusivo en Navojoa: privadas con acceso controlado, caseta de vigilancia 24 horas, parque central y áreas verdes para toda la familia.",
+      amenidades: [
+        "Privada y acceso controlado",
+        "Caseta de vigilancia 24 h",
+        "Área de juegos",
+        "Parque central",
+        "Pasto sintético",
+        "Bardas traseras",
+      ],
+      modelos: [
+        modelo("santa-maria-iv", "asturias", "Asturias", {
+          plantas: 2, construccion: 107.51, terreno: 135, recamaras: 3,
+          banos: "2 1/2", cochera: null,
+          extras: ["Vestidor", "Sala", "Comedor", "Cocina", "Cuarto de lavado", "Cochera"],
+        }),
+        modelo("santa-maria-iv", "valencia", "Valencia", {
+          plantas: 2, construccion: 70.19, terreno: null, recamaras: 2,
+          banos: "1 1/2", cochera: null,
+          extras: ["Sala", "Comedor", "Cocina", "Cochera"],
+        }),
+        modelo("santa-maria-iv", "nuevavalencia", "Nueva Valencia", {
+          plantas: 2, construccion: 86.65, terreno: null, recamaras: 2,
+          banos: "1 1/2", cochera: null,
+          extras: ["Sala", "Comedor", "Cocina", "Estancia"],
+        }),
+      ],
+    },
+    {
       slug: "mar-de-plata",
       nombre: "Mar de Plata",
       ciudad: "Hermosillo",
@@ -80,6 +117,34 @@
           extras: ["Sala", "Comedor", "Cocina", "Vestidor", "Recibidor", "Estancia", "Cuarto de lavado"],
         }),
       ],
+    },
+    {
+      slug: "monte-de-calabria",
+      nombre: "Monte de Calabria",
+      ciudad: "Hermosillo",
+      estado: "Sonora",
+      situacion: "vendido",
+      telefono: CORPORATIVO.telefono,
+      whatsapp: CORPORATIVO.whatsapp,
+      direccion: "Hermosillo, Sonora.",
+      descripcion:
+        "Desarrollo concluido en Hermosillo. Tranquilidad, seguridad y áreas de convivencia para disfrutar el entorno.",
+      amenidades: [],
+      modelos: [],
+    },
+    {
+      slug: "san-marino-hermosillo",
+      nombre: "San Marino Hermosillo",
+      ciudad: "Hermosillo",
+      estado: "Sonora",
+      situacion: "vendido",
+      telefono: CORPORATIVO.telefono,
+      whatsapp: CORPORATIVO.whatsapp,
+      direccion: "Hermosillo, Sonora.",
+      descripcion:
+        "Comunidad consolidada en Hermosillo. Un desarrollo entregado que sigue creciendo en plusvalía.",
+      amenidades: [],
+      modelos: [],
     },
     {
       slug: "san-marino-obregon",
@@ -164,71 +229,6 @@
           extras: ["Sala-comedor", "Cocina"],
         }),
       ],
-    },
-    {
-      slug: "santa-maria-iv",
-      nombre: "Misión Santa María IV",
-      ciudad: "Navojoa",
-      estado: "Sonora",
-      situacion: "disponible",
-      telefono: "644 115 2097",
-      whatsapp: "526441152097",
-      direccion: "Navojoa, Sonora.",
-      descripcion:
-        "Fraccionamiento residencial exclusivo en Navojoa: privadas con acceso controlado, caseta de vigilancia 24 horas, parque central y áreas verdes para toda la familia.",
-      amenidades: [
-        "Privada y acceso controlado",
-        "Caseta de vigilancia 24 h",
-        "Área de juegos",
-        "Parque central",
-        "Pasto sintético",
-        "Bardas traseras",
-      ],
-      modelos: [
-        modelo("santa-maria-iv", "asturias", "Asturias", {
-          plantas: 2, construccion: 107.51, terreno: 135, recamaras: 3,
-          banos: "2 1/2", cochera: null,
-          extras: ["Vestidor", "Sala", "Comedor", "Cocina", "Cuarto de lavado", "Cochera"],
-        }),
-        modelo("santa-maria-iv", "valencia", "Valencia", {
-          plantas: 2, construccion: 70.19, terreno: null, recamaras: 2,
-          banos: "1 1/2", cochera: null,
-          extras: ["Sala", "Comedor", "Cocina", "Cochera"],
-        }),
-        modelo("santa-maria-iv", "nuevavalencia", "Nueva Valencia", {
-          plantas: 2, construccion: 86.65, terreno: null, recamaras: 2,
-          banos: "1 1/2", cochera: null,
-          extras: ["Sala", "Comedor", "Cocina", "Estancia"],
-        }),
-      ],
-    },
-    {
-      slug: "monte-de-calabria",
-      nombre: "Monte de Calabria",
-      ciudad: "Hermosillo",
-      estado: "Sonora",
-      situacion: "vendido",
-      telefono: CORPORATIVO.telefono,
-      whatsapp: CORPORATIVO.whatsapp,
-      direccion: "Hermosillo, Sonora.",
-      descripcion:
-        "Desarrollo concluido en Hermosillo. Tranquilidad, seguridad y áreas de convivencia para disfrutar el entorno.",
-      amenidades: [],
-      modelos: [],
-    },
-    {
-      slug: "san-marino-hermosillo",
-      nombre: "San Marino Hermosillo",
-      ciudad: "Hermosillo",
-      estado: "Sonora",
-      situacion: "vendido",
-      telefono: CORPORATIVO.telefono,
-      whatsapp: CORPORATIVO.whatsapp,
-      direccion: "Hermosillo, Sonora.",
-      descripcion:
-        "Comunidad consolidada en Hermosillo. Un desarrollo entregado que sigue creciendo en plusvalía.",
-      amenidades: [],
-      modelos: [],
     },
     {
       slug: "las-misiones",
