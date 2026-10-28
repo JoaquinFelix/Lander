@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lander | Casas y fraccionamientos en Sonora</title>
+  <meta name="description" content="Desarrollos Residenciales Lander: fraccionamientos y residenciales con calidad certificada en Hermosillo, Cd. Obregón y Navojoa. Conoce los modelos y agenda tu visita.">
+  <meta name="theme-color" content="#A6CE3A">
+  <meta property="og:title" content="Lander | Más que hogares, comunidades">
+  <meta property="og:description" content="20 años construyendo comunidades en Sonora. Casas de 2 y 3 recámaras con amenidades reales. Agenda tu visita.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <!-- Sprite de íconos: SVG inline, sin dependencias externas -->
+  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="ico-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="ico-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></symbol>
+    <symbol id="ico-phone" viewBox="0 0 24 24"><path d="M6.6 3h3l1.5 4.5-2.1 1.5a12 12 0 0 0 5.9 5.9l1.5-2.1L21 14.4v3a2.6 2.6 0 0 1-2.9 2.6A16.6 16.6 0 0 1 4 5.9 2.6 2.6 0 0 1 6.6 3Z"/></symbol>
+    <symbol id="ico-whatsapp" viewBox="0 0 24 24"><path d="M20 11.6a8 8 0 0 1-11.9 7L4 20l1.4-4A8 8 0 1 1 20 11.6Z"/><path d="M8.7 8.4c.3-.6.6-.6.9-.6h.6c.2 0 .5 0 .7.5l.6 1.5c.1.3 0 .5-.1.7l-.5.6c-.2.2-.2.4 0 .6a6 6 0 0 0 2.7 2.3c.3.1.5.1.7-.1l.6-.7c.2-.2.4-.2.6-.1l1.5.7c.3.1.4.3.4.5a2 2 0 0 1-1.4 1.9c-.7.2-1.6.1-3.2-.7a10 10 0 0 1-3.9-3.7c-.6-1-.9-1.8-.9-2.5 0-.7.3-1.3.7-1.7Z"/></symbol>
+    <symbol id="ico-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="ico-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="ico-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="ico-check" viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"/></symbol>
+    <symbol id="ico-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1Z"/></symbol>
+    <symbol id="ico-ruler" viewBox="0 0 24 24"><path d="m3 15 12-12 6 6-12 12Z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></symbol>
+    <symbol id="ico-bed" viewBox="0 0 24 24"><path d="M3 18v-7h18v7M3 18v2M21 18v2M3 11V7M7 11V9h5v2"/></symbol>
+    <symbol id="ico-bath" viewBox="0 0 24 24"><path d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Z"/><path d="M7 12V6a2 2 0 0 1 3.5-1.3"/><path d="M7 21l-1 1M17 21l1 1"/></symbol>
+    <symbol id="ico-car" viewBox="0 0 24 24"><path d="M5 16h14M4 16l1.5-5.5A2 2 0 0 1 7.4 9h9.2a2 2 0 0 1 1.9 1.5L20 16v3H4Z"/><circle cx="7.5" cy="16.5" r="1"/><circle cx="16.5" cy="16.5" r="1"/></symbol>
+    <symbol id="ico-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></symbol>
+    <symbol id="ico-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.8 7 8.2 6 8.2-6"/></symbol>
+    <symbol id="ico-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="ico-leaf" viewBox="0 0 24 24"><path d="M20 4C10 4 4 8 4 15a5 5 0 0 0 5 5c7 0 11-6 11-16Z"/><path d="M4 20c3-6 7-9 12-11"/></symbol>
+    <symbol id="ico-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9Z"/></symbol>
+    <symbol id="ico-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="ico-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/><circle cx="12" cy="12" r="3"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="container header__inner">
+      <a class="brand" href="#inicio" aria-label="Lander, ir al inicio">
+        <picture>
+          <source srcset="assets/brand/logo-white.svg" media="(prefers-color-scheme: dark)">
+          <img src="assets/brand/logo-fullcolor.svg" alt="Desarrollos Residenciales Lander" width="92" height="54">
+        </picture>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-principal">
+        <svg class="icon" aria-hidden="true"><use href="#ico-menu"></use></svg>
+        <span class="nav-toggle__text">Menú</span>
+      </button>
+
+      <nav class="nav" id="nav-principal" aria-label="Navegación principal">
+        <a href="#desarrollos">Desarrollos</a>
+        <a href="#modelos">Modelos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+        <a class="btn btn--primary btn--sm" href="#cita">Agenda tu cita</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- 1. Hero -->
+    <section class="hero" id="inicio" aria-label="Presentación Lander">
+      <div class="hero__slides" id="hero-slides">
+        <figure class="hero__slide is-active">
+          <img src="assets/hero/hero-1.webp" alt="Comunidad Lander al atardecer" width="1920" height="1080" fetchpriority="high" decoding="async">
+        </figure>
+        <figure class="hero__slide">
+          <img src="assets/hero/hero-2.webp" alt="Fachada de casa Lander" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+        <figure class="hero__slide">
+          <img src="assets/hero/hero-3.webp" alt="Áreas verdes de un residencial Lander" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+        <figure class="hero__slide">
+          <img src="assets/hero/hero-4.webp" alt="Acceso principal de un desarrollo Lander" width="1920" height="1080" loading="lazy" decoding="async">
+        </figure>
+      </div>
+
+      <div class="hero__overlay" aria-hidden="true"></div>
+
+      <div class="container hero__content">
+        <p class="eyebrow">20 años construyendo comunidades</p>
+        <h1>Más que hogares,<br>comunidades.</h1>
+        <p class="hero__lead">Fraccionamientos y residenciales en Sonora con calidad certificada, amenidades reales y un plan de financiamiento a tu medida. Agenda hoy tu visita y conoce tu próxima casa.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#encuentra">Encuentra tu casa</a>
+          <a class="btn btn--ghost" href="#cita">Agendar asesoría</a>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="hero__bar">
+          <ul class="stats">
+            <li><strong>20</strong><span>años de experiencia</span></li>
+            <li><strong>+10K</strong><span>viviendas entregadas</span></li>
+            <li><strong>4</strong><span>desarrollos activos</span></li>
+            <li><strong>1.º</strong><span>lugar nacional en Calidad de Vida</span></li>
+          </ul>
+
+          <div class="hero__controls" role="group" aria-label="Controles del carrusel">
+            <button class="icon-btn" id="hero-prev" type="button" aria-label="Imagen anterior">
+              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-left"></use></svg>
+            </button>
+            <div class="dots" id="hero-dots" role="group" aria-label="Seleccionar imagen"></div>
+            <button class="icon-btn" id="hero-next" type="button" aria-label="Imagen siguiente">
+              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"></use></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Buscador -->
+    <section class="finder" id="encuentra" aria-labelledby="finder-title">
+      <div class="container">
+        <form class="finder__card" id="buscador" novalidate>
+          <div class="finder__head">
+            <h2 id="finder-title">Encuentra tu próxima casa</h2>
+            <p>Filtra por ubicación, desarrollo y modelo. Te contactamos el mismo día.</p>
+          </div>
+
+          <div class="finder__grid">
+            <div class="field">
+              <label for="filtro-estado">Estado</label>
+              <div class="select">
+                <select id="filtro-estado" name="estado">
+                  <option value="">Todos los estados</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="filtro-desarrollo">Desarrollo</label>
+              <div class="select">
+                <select id="filtro-desarrollo" name="desarrollo">
+                  <option value="">Todos los desarrollos</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="filtro-modelo">Modelo</label>
+              <div class="select">
+                <select id="filtro-modelo" name="modelo">
+                  <option value="">Todos los modelos</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn--primary finder__submit" type="submit">
+              Ver disponibilidad
+              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"></use></svg>
+            </button>
+          </div>
+
+          <div class="finder__result" id="finder-resultado" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. Desarrollos -->
+    <section class="section" id="desarrollos" aria-labelledby="desarrollos-title">
+      <div class="container">
+        <header class="section__head">
+          <div>
+            <p class="eyebrow">Ubicaciones</p>
+            <h2 id="desarrollos-title">Desarrollos disponibles</h2>
+            <p>Cuatro comunidades activas en Sonora. Elige la que mejor se adapte a tu familia.</p>
+          </div>
+        </header>
+
+        <div class="chips" id="chips-ciudad" role="group" aria-label="Filtrar desarrollos por ciudad"></div>
+
+        <div class="grid grid--dev" id="grid-desarrollos"></div>
+
+        <noscript>
+          <p class="notice">Activa JavaScript para ver el catálogo interactivo de desarrollos y modelos.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- 4. Catálogo de modelos -->
+    <section class="section section--alt" id="modelos" aria-labelledby="modelos-title">
+      <div class="container">
+        <header class="section__head">
+          <div>
+            <p class="eyebrow">Catálogo</p>
+            <h2 id="modelos-title">Nuestros modelos</h2>
+            <p>Casas de 2 y 3 recámaras, de 46 a 152 m² de construcción. Precio a consultar según disponibilidad y esquema de crédito.</p>
+          </div>
+          <div class="carousel__nav" role="group" aria-label="Controles del catálogo">
+            <button class="icon-btn" id="modelos-prev" type="button" aria-label="Modelos anteriores">
+              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-left"></use></svg>
+            </button>
+            <button class="icon-btn" id="modelos-next" type="button" aria-label="Modelos siguientes">
+              <svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"></use></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="tabs" id="tabs-desarrollo" role="group" aria-label="Filtrar modelos por desarrollo"></div>
+
+        <div class="carousel">
+          <ul class="carousel__track" id="track-modelos" tabindex="0" aria-label="Modelos disponibles"></ul>
+        </div>
+
+        <p class="carousel__status" id="modelos-status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- 5. Amenidades -->
+    <section class="section" id="amenidades" aria-labelledby="amenidades-title">
+      <div class="container">
+        <header class="section__head section__head--center">
+          <div>
+            <p class="eyebrow">Amenidades</p>
+            <h2 id="amenidades-title">Diseñados para vivirse</h2>
+            <p>Espacios pensados para convivir, descansar y crecer en comunidad.</p>
+          </div>
+        </header>
+
+        <ul class="features">
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#ico-leaf"></use></svg></span>
+            <h3>Áreas verdes y parques</h3>
+            <p>Jardines, camellones arbolados y parques centrales que dan aire y sombra a la comunidad.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#ico-shield"></use></svg></span>
+            <h3>Acceso controlado</h3>
+            <p>Caseta de vigilancia, pluma automatizada y privadas cerradas en los desarrollos que lo incluyen.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#ico-star"></use></svg></span>
+            <h3>Casa club y alberca</h3>
+            <p>Alberca con chapoteadero, área social y espacios para reuniones familiares.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#ico-bed"></use></svg></span>
+            <h3>Áreas de juegos</h3>
+            <p>Juegos infantiles y canchas de usos múltiples para todas las edades.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#ico-ruler"></use></svg></span>
+            <h3>Diseño funcional</h3>
+            <p>Plantas de 1 y 2 niveles, con cochera techada y distribución pensada para la vida diaria.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon" aria-hidden="true"><use href="#ico-pin"></use></svg></span>
+            <h3>Todo a 5 minutos</h3>
+            <p>Escuelas, hospitales, centros comerciales y zonas de trabajo cerca de tu casa.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. Galería -->
+    <section class="section section--alt" aria-labelledby="galeria-title">
+      <div class="container">
+        <header class="section__head">
+          <div>
+            <p class="eyebrow">Galería</p>
+            <h2 id="galeria-title">Así se vive en Lander</h2>
+            <p>Imágenes ilustrativas de nuestras áreas comunes y fachadas.</p>
+          </div>
+        </header>
+
+        <div class="mosaic">
+          <figure class="mosaic__item mosaic__item--wide">
+            <img src="assets/galeria/mar-de-plata-1.webp" alt="Áreas comunes de Mar de Plata, Hermosillo" width="1200" height="800" loading="lazy" decoding="async">
+            <figcaption>Mar de Plata · Hermosillo</figcaption>
+          </figure>
+          <figure class="mosaic__item">
+            <img src="assets/galeria/mision-del-prado-1.webp" alt="Áreas comunes de Misión del Prado, Cd. Obregón" width="800" height="600" loading="lazy" decoding="async">
+            <figcaption>Misión del Prado · Cd. Obregón</figcaption>
+          </figure>
+          <figure class="mosaic__item">
+            <img src="assets/galeria/santa-maria-iv-1.webp" alt="Áreas comunes de Misión Santa María IV, Navojoa" width="800" height="600" loading="lazy" decoding="async">
+            <figcaption>Misión Santa María IV · Navojoa</figcaption>
+          </figure>
+          <figure class="mosaic__item mosaic__item--wide">
+            <img src="assets/galeria/san-marino-obregon-1.webp" alt="Áreas comunes de San Marino, Cd. Obregón" width="1200" height="800" loading="lazy" decoding="async">
+            <figcaption>San Marino · Cd. Obregón</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Nosotros -->
+    <section class="section" id="nosotros" aria-labelledby="nosotros-title">
+      <div class="container about">
+        <div class="about__copy">
+          <p class="eyebrow">Nosotros</p>
+          <h2 id="nosotros-title">20 años construyendo con propósito</h2>
+          <p>Desarrollos Residenciales Lander nació en 2006 en Cd. Obregón, Sonora, con la visión de crear desarrollos habitacionales que integren calidad, belleza y accesibilidad. Hoy somos un grupo de profesionales de distintas disciplinas del negocio de la vivienda, con una estructura financiera sana y una base tecnológica propia.</p>
+          <p>Nuestro compromiso sigue siendo el mismo: que cada familia mejore su calidad de vida con un patrimonio sólido y una comunidad donde valga la pena crecer.</p>
+          <ul class="checklist">
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-check"></use></svg>1.º y 2.º lugar nacional en Calidad de Vida (certificación ISA)</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-check"></use></svg>1.º lugar nacional en Obras CEMEX</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-check"></use></svg>Desarrollos certificados DC en México</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-check"></use></svg>Más de 10,000 viviendas de calidad entregadas</li>
+          </ul>
+        </div>
+
+        <div class="about__stats">
+          <div class="stat-card"><strong>2006</strong><span>Año de fundación</span></div>
+          <div class="stat-card"><strong>+10K</strong><span>Viviendas entregadas</span></div>
+          <div class="stat-card"><strong>20</strong><span>Años de experiencia</span></div>
+          <div class="stat-card"><strong>100%</strong><span>Desarrollos certificados</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Proceso -->
+    <section class="section section--alt" aria-labelledby="proceso-title">
+      <div class="container">
+        <header class="section__head section__head--center">
+          <div>
+            <p class="eyebrow">Proceso</p>
+            <h2 id="proceso-title">Comprar tu casa, paso a paso</h2>
+            <p>Te acompañamos desde la primera visita hasta la entrega de llaves.</p>
+          </div>
+        </header>
+
+        <ol class="steps">
+          <li class="step"><span class="step__num">1</span><h3>Elige tu modelo</h3><p>Compara desarrollos, metrajes y distribuciones. Te enviamos la ficha técnica de cada modelo.</p></li>
+          <li class="step"><span class="step__num">2</span><h3>Agenda tu visita</h3><p>Recorre la casa muestra y el fraccionamiento con un asesor, sin compromiso.</p></li>
+          <li class="step"><span class="step__num">3</span><h3>Define tu crédito</h3><p>Revisamos tu caso con Infonavit, Fovissste, crédito bancario o pago de contado.</p></li>
+          <li class="step"><span class="step__num">4</span><h3>Firma y recibe</h3><p>Te guiamos en la firma, notaría y entrega de tu nueva casa.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 9. Cita -->
+    <section class="section" id="cita" aria-labelledby="cita-title">
+      <div class="container contact">
+        <div class="contact__intro">
+          <p class="eyebrow">Agenda</p>
+          <h2 id="cita-title">Agenda tu visita</h2>
+          <p>Déjanos tus datos y un asesor te contacta para confirmar día y hora. También puedes escribirnos directo por WhatsApp.</p>
+
+          <ul class="contact__list">
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#ico-phone"></use></svg>
+              <div><strong>Sonora</strong><a href="tel:+526444135278">644 413 5278</a> · <a href="tel:+526444135280">644 413 5280</a></div>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#ico-phone"></use></svg>
+              <div><strong>Querétaro</strong><a href="tel:+524422225553">442 222 5553</a></div>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#ico-pin"></use></svg>
+              <div><strong>Corporativo</strong><span>Av. Náinari #1116 Ote., Col. Zona Norte, C.P. 85040, Cd. Obregón, Sonora.</span></div>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#ico-mail"></use></svg>
+              <div><strong>Correo</strong><a href="mailto:info@lander.com.mx">info@lander.com.mx</a></div>
+            </li>
+            <li>
+              <svg class="icon" aria-hidden="true"><use href="#ico-clock"></use></svg>
+              <div><strong>Horario</strong><span>Lunes a domingo, 9:00 a 19:00 h</span></div>
+            </li>
+          </ul>
+        </div>
+
+        <form class="form" id="form-cita" novalidate>
+          <div class="form__row">
+            <div class="field">
+              <label for="nombre">Nombre completo *</label>
+              <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="error-nombre" placeholder="Ej. Ana Martínez">
+              <p class="field__error" id="error-nombre" hidden></p>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono *</label>
+              <input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required aria-describedby="error-telefono" placeholder="10 dígitos">
+              <p class="field__error" id="error-telefono" hidden></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" name="correo" type="email" autocomplete="email" aria-describedby="error-correo" placeholder="tu@correo.com">
+            <p class="field__error" id="error-correo" hidden></p>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="cita-desarrollo">Desarrollo de interés *</label>
+              <div class="select">
+                <select id="cita-desarrollo" name="desarrollo" required aria-describedby="error-desarrollo">
+                  <option value="">Selecciona un desarrollo</option>
+                </select>
+              </div>
+              <p class="field__error" id="error-desarrollo" hidden></p>
+            </div>
+            <div class="field">
+              <label for="cita-modelo">Modelo</label>
+              <div class="select">
+                <select id="cita-modelo" name="modelo">
+                  <option value="">Cualquier modelo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="field">
+              <label for="fecha">Fecha preferida *</label>
+              <input id="fecha" name="fecha" type="date" required aria-describedby="error-fecha">
+              <p class="field__error" id="error-fecha" hidden></p>
+            </div>
+            <div class="field">
+              <label for="horario">Horario *</label>
+              <div class="select">
+                <select id="horario" name="horario" required aria-describedby="error-horario">
+                  <option value="">Selecciona un horario</option>
+                  <option>09:00 - 11:00</option>
+                  <option>11:00 - 13:00</option>
+                  <option>13:00 - 15:00</option>
+                  <option>15:00 - 17:00</option>
+                  <option>17:00 - 19:00</option>
+                </select>
+              </div>
+              <p class="field__error" id="error-horario" hidden></p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="mensaje">Mensaje (opcional)</label>
+            <textarea id="mensaje" name="mensaje" rows="3" placeholder="Cuéntanos si buscas una casa de 2 o 3 recámaras, si tienes crédito preaprobado, etc."></textarea>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" id="privacidad" name="privacidad" required aria-describedby="error-privacidad">
+            <span>Acepto el <a href="assets/docs/aviso-privacidad.pdf" target="_blank" rel="noopener">aviso de privacidad</a> y el contacto de un asesor.</span>
+          </label>
+          <p class="field__error" id="error-privacidad" hidden></p>
+
+          <button class="btn btn--primary btn--block" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#ico-whatsapp"></use></svg>
+            Agendar por WhatsApp
+          </button>
+
+          <p class="form__note">Al enviar se abrirá WhatsApp con tu solicitud lista para mandar. Guardamos una copia local en tu navegador como respaldo.</p>
+
+          <div class="form__success" id="form-exito" role="status" hidden>
+            <svg class="icon" aria-hidden="true"><use href="#ico-check"></use></svg>
+            <div>
+              <strong>¡Solicitud lista!</strong>
+              <p id="form-exito-texto"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contacto">
+    <div class="container footer__grid">
+      <div>
+        <img class="footer__logo" src="assets/brand/logo-white.svg" alt="Desarrollos Residenciales Lander" width="133" height="78" loading="lazy">
+        <p class="footer__tagline">Más que hogares, comunidades. 20 años construyendo el patrimonio de las familias de Sonora.</p>
+      </div>
+
+      <nav aria-label="Enlaces del sitio">
+        <h2 class="footer__title">Sitio</h2>
+        <ul>
+          <li><a href="#desarrollos">Desarrollos</a></li>
+          <li><a href="#modelos">Modelos</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#cita">Agenda tu cita</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <h2 class="footer__title">Oficinas</h2>
+        <ul>
+          <li><strong>Cd. Obregón</strong><br>Av. Náinari #1116 Ote., Col. Zona Norte, C.P. 85040.</li>
+          <li><strong>Querétaro</strong><br>Prolongación Bernardo Quintana #4213, C.P. 76116.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="footer__title">Contacto</h2>
+        <ul>
+          <li><a href="tel:+526444135278">644 413 5278</a></li>
+          <li><a href="tel:+524422225553">442 222 5553</a></li>
+          <li><a href="mailto:info@lander.com.mx">info@lander.com.mx</a></li>
+          <li><a href="assets/docs/aviso-privacidad.pdf" target="_blank" rel="noopener">Aviso de privacidad</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer__bottom">
+      <p>© <span id="anio">2026</span> Desarrollos Residenciales Lander, S.A. de C.V.</p>
+      <p>Imágenes ilustrativas. Precios y disponibilidad sujetos a cambio sin previo aviso.</p>
+    </div>
+  </footer>
+
+  <!-- Asistente IA: puerta falsa, funcionalidad pendiente -->
+  <button class="ai-fab" id="ai-fab" type="button" aria-expanded="false" aria-controls="ai-panel" aria-label="Abrir Asistente IA Lander">
+    <span class="ai-fab__pulse" aria-hidden="true"></span>
+    <svg class="icon" aria-hidden="true"><use href="#ico-spark"></use></svg>
+    <span class="ai-fab__label">Asistente IA</span>
+  </button>
+
+  <dialog class="ai-panel" id="ai-panel" aria-labelledby="ai-title">
+    <header class="ai-panel__head">
+      <div class="ai-panel__id">
+        <span class="ai-avatar" aria-hidden="true"><svg class="icon"><use href="#ico-spark"></use></svg></span>
+        <div>
+          <h2 id="ai-title">Asistente IA Lander</h2>
+          <p class="ai-status"><span aria-hidden="true"></span> En entrenamiento</p>
+        </div>
+      </div>
+      <button class="icon-btn" id="ai-close" type="button" aria-label="Cerrar asistente">
+        <svg class="icon" aria-hidden="true"><use href="#ico-close"></use></svg>
+      </button>
+    </header>
+
+    <div class="ai-panel__body">
+      <div class="bubble bubble--bot">
+        <p>¡Hola! Soy el futuro Asistente IA de Lander. Estoy aprendiendo sobre nuestros desarrollos, modelos y esquemas de crédito para responderte al instante.</p>
+        <p>Muy pronto podré ayudarte a:</p>
+      </div>
+
+      <ul class="ai-prompts">
+        <li><button type="button" disabled>¿Qué modelo tiene 3 recámaras y cochera para 2 autos?</button></li>
+        <li><button type="button" disabled>¿Cuánto cuesta una casa en Mar de Plata?</button></li>
+        <li><button type="button" disabled>¿Cómo agendo una visita el fin de semana?</button></li>
+      </ul>
+
+      <div class="ai-capture" id="ai-capture">
+        <p class="ai-capture__title">¿Quieres que te avisemos cuando esté listo?</p>
+        <form id="form-ia" novalidate>
+          <label class="sr-only" for="ia-contacto">Tu WhatsApp o correo</label>
+          <div class="ai-capture__row">
+            <input id="ia-contacto" name="contacto" type="text" placeholder="WhatsApp o correo" aria-describedby="error-ia">
+            <button class="btn btn--primary btn--sm" type="submit">Avísame</button>
+          </div>
+          <p class="field__error" id="error-ia" hidden></p>
+        </form>
+      </div>
+
+      <div class="ai-success" id="ai-exito" role="status" hidden>
+        <svg class="icon" aria-hidden="true"><use href="#ico-check"></use></svg>
+        <p><strong>Listo.</strong> Te avisaremos en cuanto el Asistente IA Lander esté disponible.</p>
+      </div>
+
+      <a class="btn btn--outline btn--block" id="ai-whatsapp" href="https://wa.me/526444135278" target="_blank" rel="noopener">
+        <svg class="icon" aria-hidden="true"><use href="#ico-whatsapp"></use></svg>
+        Mientras tanto, habla con un asesor
+      </a>
+
+      <p class="ai-disclaimer">Asistente en desarrollo. La información mostrada aquí es una vista previa y no genera respuestas automáticas.</p>
+    </div>
+  </dialog>
+
+  <!-- Ficha técnica del modelo -->
+  <dialog class="modal" id="ficha-modelo" aria-labelledby="ficha-titulo"></dialog>
+</body>
+</html>
