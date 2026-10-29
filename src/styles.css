@@ -1745,6 +1745,18 @@ dialog {
   max-width: none;
 }
 
+/* Safari < 15.4 (iOS 15.0–15.3) no conoce <dialog>: sin esto el panel de la IA
+   se pinta cerrado y tapa la página. :where() deja que .modal/.ai-panel ganen. */
+dialog:not([open]) {
+  display: none;
+}
+
+:where(dialog[open]) {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
 dialog::backdrop {
   background: rgba(8, 11, 6, 0.62);
   backdrop-filter: blur(3px);

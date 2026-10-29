@@ -252,6 +252,18 @@
 
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  // <dialog> llegó a Safari en iOS 15.4; antes no existen showModal() ni close().
+  const abrirDialogo = (dialog) => {
+    if (typeof dialog.showModal === "function") dialog.showModal();
+    else dialog.setAttribute("open", "");
+  };
+  const cerrarDialogo = (dialog) => {
+    if (typeof dialog.close === "function") return dialog.close();
+    dialog.removeAttribute("open");
+    dialog.dispatchEvent(new Event("close"));
+  };
+
   const nf = new Intl.NumberFormat("es-MX", { maximumFractionDigits: 2 });
 
   const m2 = (valor) => (valor ? `${nf.format(valor)} m²` : "—");
@@ -741,12 +753,12 @@
         </div>
       </div>`;
 
-    dialog.showModal();
+    abrirDialogo(dialog);
 
-    $("[data-cerrar-ficha]", dialog)?.addEventListener("click", () => dialog.close());
+    $("[data-cerrar-ficha]", dialog)?.addEventListener("click", () => cerrarDialogo(dialog));
     $("[data-agendar-ficha]", dialog)?.addEventListener("click", (e) => {
       const [devSlug, modelId] = e.currentTarget.dataset.agendarFicha.split(":");
-      dialog.close();
+      cerrarDialogo(dialog);
       prefillCita(devSlug, modelId);
     });
   }
@@ -1102,13 +1114,13 @@
     if (!fab || !panel) return;
 
     const abrir = () => {
-      panel.showModal();
+      abrirDialogo(panel);
       fab.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
     };
 
     const ocultar = () => {
-      panel.close();
+      cerrarDialogo(panel);
       fab.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
       fab.focus();
@@ -1187,7 +1199,7 @@
     ["#ficha-modelo"].forEach((sel) => {
       const dialog = $(sel);
       dialog?.addEventListener("click", (e) => {
-        if (e.target === dialog) dialog.close();
+        if (e.target === dialog) cerrarDialogo(dialog);
       });
     });
   }
