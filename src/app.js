@@ -771,6 +771,7 @@
     const mod = $("#filtro-modelo");
     const form = $("#buscador");
     const resultado = $("#finder-resultado");
+    const seccion = form?.closest(".tu-casa");
     if (!estado || !dev || !mod || !form || !resultado) return;
 
     const estados = [...new Set(ACTIVOS.map((d) => d.estado))];
@@ -807,6 +808,9 @@
         return true;
       });
 
+      // Con resultados se ocultan los pasos del proceso para que la lista quede a la vista.
+      seccion?.classList.toggle("tu-casa--resultados", coincide.length > 0);
+
       if (!coincide.length) {
         resultado.innerHTML = `<p class="finder-empty">${icono("ico-pin")} No encontramos desarrollos con esa combinación. Prueba con otro estado o contáctanos.</p>`;
         return;
@@ -840,6 +844,9 @@
           : "";
 
       resultado.innerHTML = tarjetas + extra;
+      // En celular los filtros llenan la pantalla: se baja directo a los resultados.
+      const destino = matchMedia("(max-width: 640px)").matches ? resultado : seccion || form;
+      destino.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
     resultado.addEventListener("click", (e) => {

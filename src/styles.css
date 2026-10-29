@@ -651,12 +651,6 @@ ol {
 
 /* ---------- Buscador ---------- */
 
-.finder {
-  position: relative;
-  z-index: 5;
-  margin-top: -60px;
-}
-
 .finder__card {
   padding: clamp(20px, 3vw, 34px);
   background: var(--surface);
@@ -674,7 +668,7 @@ ol {
   margin-bottom: 22px;
 }
 
-.finder__head h2 {
+.finder__head h3 {
   font-size: clamp(1.3rem, 2.2vw, 1.65rem);
 }
 
@@ -1517,6 +1511,51 @@ select {
   font-size: 0.88rem;
 }
 
+/* ---------- Tu Casa: proceso + buscador en una pantalla ---------- */
+
+.tu-casa .step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-content: start;
+  align-items: center;
+  column-gap: 12px;
+  padding: 16px 18px;
+}
+
+.tu-casa .step__num {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 0;
+}
+
+.tu-casa .step h3 {
+  margin-bottom: 0;
+}
+
+.tu-casa .step p {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+/* Tras una búsqueda con resultados el buscador sube y los pasos se ocultan. */
+.tu-casa--resultados .section__head,
+.tu-casa--resultados .steps {
+  display: none;
+}
+
+.tu-casa .finder__card {
+  margin-top: clamp(14px, 1.6vw, 20px);
+  padding: clamp(18px, 2vw, 24px);
+}
+
+.tu-casa .finder__head {
+  margin-bottom: 14px;
+}
+
+.tu-casa--resultados .finder__card {
+  margin-top: 0;
+}
+
 /* ---------- Contacto ---------- */
 
 .contact {
@@ -2173,6 +2212,16 @@ dialog::backdrop {
 }
 
 @media (max-width: 640px) {
+  /* En celular la sección queda solo con el buscador; el proceso es para escritorio. */
+  .tu-casa .section__head,
+  .tu-casa .steps {
+    display: none;
+  }
+
+  .tu-casa .finder__card {
+    margin-top: 0;
+  }
+
   :root {
     --header-h: 66px;
   }
@@ -2217,10 +2266,6 @@ dialog::backdrop {
   .hero__controls {
     width: 100%;
     justify-content: space-between;
-  }
-
-  .finder {
-    margin-top: -44px;
   }
 
   .finder__head {

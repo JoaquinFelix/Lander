@@ -69,6 +69,7 @@
         <a class="nav__home" href="#inicio" aria-label="Ir al inicio" title="Inicio">
           <svg class="icon" aria-hidden="true"><use href="#ico-home"></use></svg>
         </a>
+        <a href="#tu-casa">Tu Casa</a>
         <a href="#desarrollos">Desarrollos</a>
         <a href="#modelos">Modelos</a>
         <a href="#nosotros">Nosotros</a>
@@ -109,7 +110,7 @@
         <h1>Más que hogares,<br>comunidades.</h1>
         <p class="hero__lead">Fraccionamientos y residenciales en Sonora con calidad certificada, amenidades reales y un plan de financiamiento a tu medida. Agenda hoy tu visita y conoce tu próxima casa.</p>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="#encuentra">Encuentra tu casa</a>
+          <a class="btn btn--primary" href="#tu-casa">Encuentra tu casa</a>
           <a class="btn btn--ghost" href="#cita">Agendar asesoría</a>
         </div>
       </div>
@@ -136,12 +137,27 @@
       </div>
     </section>
 
-    <!-- 2. Buscador -->
-    <section class="finder" id="encuentra" aria-labelledby="finder-title">
+    <!-- 2. Tu Casa: proceso + buscador -->
+    <section class="section section--alt tu-casa" id="tu-casa" aria-labelledby="proceso-title">
       <div class="container">
+        <header class="section__head section__head--center">
+          <div>
+            <p class="eyebrow">Proceso</p>
+            <h2 id="proceso-title">Comprar tu casa, paso a paso</h2>
+            <p>Te acompañamos desde la primera visita hasta la entrega de llaves.</p>
+          </div>
+        </header>
+
+        <ol class="steps">
+          <li class="step"><span class="step__num">1</span><h3>Elige tu modelo</h3><p>Compara desarrollos, metrajes y distribuciones. Te enviamos la ficha técnica de cada modelo.</p></li>
+          <li class="step"><span class="step__num">2</span><h3>Agenda tu visita</h3><p>Recorre la casa muestra y el fraccionamiento con un asesor, sin compromiso.</p></li>
+          <li class="step"><span class="step__num">3</span><h3>Define tu crédito</h3><p>Revisamos tu caso con Infonavit, Fovissste, crédito bancario o pago de contado.</p></li>
+          <li class="step"><span class="step__num">4</span><h3>Firma y recibe</h3><p>Te guiamos en la firma, notaría y entrega de tu nueva casa.</p></li>
+        </ol>
+
         <form class="finder__card" id="buscador" novalidate>
           <div class="finder__head">
-            <h2 id="finder-title">Encuentra tu próxima casa</h2>
+            <h3 id="finder-title">Encuentra tu próxima casa</h3>
             <p>Filtra por ubicación, desarrollo y modelo. Te contactamos el mismo día.</p>
           </div>
 
@@ -343,28 +359,8 @@
       </div>
     </section>
 
-    <!-- 8. Proceso -->
-    <section class="section section--alt" aria-labelledby="proceso-title">
-      <div class="container">
-        <header class="section__head section__head--center">
-          <div>
-            <p class="eyebrow">Proceso</p>
-            <h2 id="proceso-title">Comprar tu casa, paso a paso</h2>
-            <p>Te acompañamos desde la primera visita hasta la entrega de llaves.</p>
-          </div>
-        </header>
-
-        <ol class="steps">
-          <li class="step"><span class="step__num">1</span><h3>Elige tu modelo</h3><p>Compara desarrollos, metrajes y distribuciones. Te enviamos la ficha técnica de cada modelo.</p></li>
-          <li class="step"><span class="step__num">2</span><h3>Agenda tu visita</h3><p>Recorre la casa muestra y el fraccionamiento con un asesor, sin compromiso.</p></li>
-          <li class="step"><span class="step__num">3</span><h3>Define tu crédito</h3><p>Revisamos tu caso con Infonavit, Fovissste, crédito bancario o pago de contado.</p></li>
-          <li class="step"><span class="step__num">4</span><h3>Firma y recibe</h3><p>Te guiamos en la firma, notaría y entrega de tu nueva casa.</p></li>
-        </ol>
-      </div>
-    </section>
-
     <!-- 9. Cita -->
-    <section class="section" id="cita" aria-labelledby="cita-title">
+    <section class="section section--alt" id="cita" aria-labelledby="cita-title">
       <div class="container contact">
         <div class="contact__intro">
           <p class="eyebrow">Agenda</p>
