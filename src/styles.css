@@ -84,7 +84,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h) + 12px);
+  scroll-padding-top: var(--header-h);
 }
 
 body {
@@ -866,7 +866,7 @@ select {
 /* ---------- Secciones ---------- */
 
 .section {
-  padding-block: clamp(24px, 3vw, 40px);
+  padding-block: clamp(20px, 2vw, 28px);
 }
 
 .section--alt {
@@ -880,7 +880,7 @@ select {
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: clamp(14px, 1.5vw, 22px);
+  margin-bottom: clamp(10px, 1vw, 14px);
 }
 
 .section__head h2 {
@@ -891,6 +891,17 @@ select {
   max-width: 62ch;
   margin-top: 8px;
   color: var(--muted);
+}
+
+/* Los filtros del reel van en la misma fila que el título y bajan solos si no caben. */
+.section__head > div:first-child:not(:only-child) {
+  flex: 1 1 320px;
+}
+
+.section__head .chips,
+.section__head .tabs {
+  margin-bottom: 0;
+  max-width: 100%;
 }
 
 .section__head--center {
@@ -2279,49 +2290,63 @@ dialog::backdrop {
   }
 }
 
-/* ---------- Fichas compactas en desktop ---------- */
+/* ---------- Fichas compactas ---------- */
 
 /* Recorte vertical de las fichas de los reels para que cada sección quepa
-   en una pantalla de 1440×900. En móvil se conserva el tamaño actual. */
+   bajo el menú en una laptop de 1366×768; en celular la ficha queda entera
+   con poco scroll. */
+.carousel--dev .dev-card__media {
+  aspect-ratio: 16 / 9;
+}
+
+.model-card__media {
+  aspect-ratio: 16 / 10;
+}
+
+.dev-card__body {
+  gap: 8px;
+  padding: 14px 16px 16px;
+}
+
+.dev-card__desc {
+  -webkit-line-clamp: 2;
+}
+
+.tags {
+  gap: 4px;
+}
+
+.tag {
+  padding: 3px 8px;
+  font-size: 0.68rem;
+}
+
+.dev-card__footer {
+  padding-top: 10px;
+}
+
+.model-card__body {
+  gap: 10px;
+  padding: 14px 16px 16px;
+}
+
 @media (min-width: 901px) {
   .carousel--dev .dev-card {
     flex-basis: 280px;
   }
 
-  /* 16/10 en vez de 4/3 recorta un poco la foto y baja la ficha ~34 px. */
-  .carousel--dev .dev-card__media {
-    aspect-ratio: 16 / 10;
-  }
-
   .dev-card__body {
-    gap: 8px;
-    padding: 14px 16px 16px;
+    gap: 6px;
+    padding-bottom: 12px;
   }
 
-  .dev-card__desc {
-    -webkit-line-clamp: 2;
-  }
-
-  .tags {
-    gap: 4px;
-  }
-
-  .tag {
-    padding: 3px 8px;
-    font-size: 0.68rem;
-  }
-
-  .dev-card__footer {
-    padding-top: 10px;
+  /* Con mouse no hace falta el alto táctil de 44 px. */
+  .dev-card__footer .link-arrow {
+    min-height: 36px;
   }
 
   .model-card {
     flex-basis: 300px;
-  }
-
-  .model-card__body {
-    gap: 10px;
-    padding: 14px 16px 16px;
   }
 
   .carousel__status {
