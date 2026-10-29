@@ -10,13 +10,11 @@
   <meta property="og:description" content="20 años construyendo comunidades en Sonora. Casas de 2 y 3 recámaras con amenidades reales. Agenda tu visita.">
   <meta property="og:type" content="website">
   <script>
-    // Fija el tema antes de pintar para evitar parpadeo (claro/oscuro).
+    // Fija el tema antes de pintar para evitar parpadeo. Claro por defecto;
+    // el oscuro solo si el visitante lo eligió en esta pestaña.
     (() => {
       try {
-        const guardado = localStorage.getItem("lander.tema.v1");
-        const oscuro = guardado
-          ? guardado === "oscuro"
-          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const oscuro = sessionStorage.getItem("lander.tema.v1") === "oscuro";
         document.documentElement.dataset.theme = oscuro ? "oscuro" : "claro";
       } catch (_) {
         document.documentElement.dataset.theme = "claro";

@@ -1027,6 +1027,13 @@
     const bot = $("#tema-toggle");
     if (!bot) return;
 
+    // Antes el tema se guardaba para siempre; se borra lo que haya quedado.
+    try {
+      localStorage.removeItem(STORAGE.tema);
+    } catch (_) {
+      /* sin almacenamiento */
+    }
+
     const esOscuro = () => document.documentElement.dataset.theme === "oscuro";
 
     const aplicar = (oscuro) => {
@@ -1049,23 +1056,12 @@
       const oscuro = !esOscuro();
       aplicar(oscuro);
       try {
-        localStorage.setItem(STORAGE.tema, oscuro ? "oscuro" : "claro");
+        // Solo esta visita: al cerrar la pestaña vuelve al claro.
+        sessionStorage.setItem(STORAGE.tema, oscuro ? "oscuro" : "claro");
       } catch (_) {
-        /* modo privado: el tema solo aplica a esta sesión */
+        /* sin almacenamiento: el tema dura hasta recargar */
       }
     });
-
-    // Sigue al sistema solo mientras no haya preferencia guardada.
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const seguirSistema = (e) => {
-      try {
-        if (localStorage.getItem(STORAGE.tema)) return;
-      } catch (_) {
-        return;
-      }
-      aplicar(e.matches);
-    };
-    media.addEventListener("change", seguirSistema);
   }
 
   /* ---------- Menú móvil ---------- */

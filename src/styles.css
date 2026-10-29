@@ -38,8 +38,8 @@
   --header-h: 74px;
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  /* Sin JS el tema se resuelve por sistema; con JS lo fija data-theme. */
-  color-scheme: light dark;
+  /* Claro por defecto; el oscuro solo con data-theme="oscuro". */
+  color-scheme: light;
   font-synthesis: none;
 }
 
@@ -67,29 +67,6 @@
 
 :root[data-theme="claro"] {
   color-scheme: light;
-}
-
-/* Fallback sin JS: sigue la preferencia del sistema. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --ink: #F2F5EC;
-    --ink-soft: #D3D9CA;
-    --muted: #A2AA9A;
-    --surface: #12150F;
-    --surface-2: #1A1E16;
-    --surface-3: #242A20;
-    --line: #2C3327;
-    --brand-text: #A6CE3A;
-    --footer-bg: #12150F;
-    --footer-ink: #EDF1E6;
-    --footer-soft: #A7AE9E;
-    --footer-muted: #8E9685;
-    --footer-link-hover: #A6CE3A;
-    --footer-line: rgba(237, 241, 230, 0.14);
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 18px 44px -16px rgba(0, 0, 0, 0.7);
-    --shadow-lg: 0 30px 80px -24px rgba(0, 0, 0, 0.8);
-  }
 }
 
 /* ---------- Reset ---------- */
@@ -383,8 +360,7 @@ ol {
   width: auto;
 }
 
-/* Dos logos: el color solo en claro, el blanco solo en oscuro. El
-   data-theme lo fija app.js; sin JS manda el sistema. */
+/* Dos logos: el color solo en claro, el blanco solo en oscuro. */
 .brand__logo--oscuro {
   display: none;
 }
@@ -395,16 +371,6 @@ ol {
 
 :root[data-theme="oscuro"] .brand__logo--oscuro {
   display: block;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .brand__logo--claro {
-    display: none;
-  }
-
-  :root:not([data-theme]) .brand__logo--oscuro {
-    display: block;
-  }
 }
 
 .nav {
@@ -479,12 +445,6 @@ ol {
   color: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .nav a.nav__home {
-    color: #ffffff;
-  }
-}
-
 /* Alternador claro/oscuro. */
 .theme-toggle {
   display: inline-grid;
@@ -517,16 +477,6 @@ ol {
 
 :root[data-theme="oscuro"] .theme-toggle__moon {
   display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .theme-toggle__sun {
-    display: block;
-  }
-
-  :root:not([data-theme]) .theme-toggle__moon {
-    display: none;
-  }
 }
 
 .nav-toggle {
@@ -883,12 +833,6 @@ select {
 
 :root[data-theme="oscuro"] .field__error {
   color: #ff8f85;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .field__error {
-    color: #ff8f85;
-  }
 }
 
 [aria-invalid="true"] {
