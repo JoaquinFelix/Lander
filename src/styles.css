@@ -2229,6 +2229,18 @@ dialog::backdrop {
     padding-bottom: 40px;
   }
 
+  /* Con cover, la foto 16:9 en un hero vertical perdía ~80 % del ancho: en celular
+     va completa en una franja arriba y se funde con el fondo bajo el texto. */
+  .hero__slides {
+    inset: 0 0 auto;
+    /* 16:9 del ancho; vw en vez de aspect-ratio por Safari viejo. */
+    height: 56.25vw;
+  }
+
+  .hero__overlay {
+    background: linear-gradient(180deg, rgba(10, 14, 6, 0.35) 0, rgba(10, 14, 6, 0.55) 38vw, #12150F 56.25vw);
+  }
+
   .hero__lead {
     margin-top: 14px;
   }
